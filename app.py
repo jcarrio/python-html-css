@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, request, url_for, session, g, redirect,\
+from flask import Flask, request, session, g, redirect,\
     abort, render_template, flash
 
 # configuração
@@ -35,6 +35,6 @@ def inserir_entrada():
     if not session.get('logado'):
         abort(401)
     sql = "insert into entradas (titulo, texto) values (?,?)"
-    g.bd.execute(sql, ,)
+    g.bd.execute(sql, request.form['campoTitulo'], request.form['campoTexto'])
     g.bd.commit()
-    return redirect(url_for('exibir_entradas'))
+    return redirect('/entradas')
