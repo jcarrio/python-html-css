@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, request, session, g, redirect,\
+from flask import Flask, request, url_for, session, g, redirect,\
     abort, render_template, flash
 
 # configuração
@@ -23,8 +23,18 @@ def depois_requisicao(exc):
 @app.route('/')
 @app.route('/entradas')
 def exibir_entradas():
-    return render_template('exibir_entradas.html', mensagem="Olá pessoas!", img="https://s3.amazonaws.com/media.wikiaves.com.br/images/4803/3084192_80b99ac1790d8306ff375024dae8cbf2.jpg")
+    sql = "select titulo, texto from entradas order by id desc"
+    cur = g.bd.execute(sql)
+    entradas = []
+    for titulo, texto in cur.fetchall():
+        entradas.append({'titulo': titulo, 'texto': texto})
+    return render_template('exibir_entradas.html', entradas=entradas)
 
-@app.route('/hello')
-def pagina_inicial():
-    return "<h1 style='color: green;'>Hello World</h1>"
+@app.route('/inserir')
+def inserir_entrada():
+    if not session.get('logado'):
+        abort(401)
+    sql = "insert into entradas (titulo, texto) values (?,?)"
+    g.bd.execute(sql, ,)
+    g.bd.commit()
+    return redirect(url_for('exibir_entradas'))
