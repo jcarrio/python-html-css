@@ -1,0 +1,20 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+    <title>Meu blog</title>
+  </head>
+
+  <body>
+    <div class="pagina">
+      <h1>Meu blog</h1>
+      <div class="metanav">
+        {% if not session.logado %}
+        <a href="{{url_for('login')}}">login</a>
+        {% else %}
+        <a href="{{url_for('logout')}}">logout</a>
+        {% endif %}
+      </div>
+      {% block corpo %}{% endblock %}
+    </div>
+  </body>
+</html>

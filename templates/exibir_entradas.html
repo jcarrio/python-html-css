@@ -1,5 +1,11 @@
 <h1 style="color: red">Aqui estarão as entradas!!</h1>
 
+{% if session.logado %}
+<h2>estou logado</h2>
+{% else %}
+<h2>não estou logado</h2>
+{% endif %}
+
 <h2>{{entradas}}</h2>
 
 <img src="{{img}}" />
