@@ -21,8 +21,9 @@ def depois_requisicao(exc):
     g.bd.close()    
 
 @app.route('/')
+@app.route('/entradas')
 def exibir_entradas():
-    return render_template('exibir_entradas.html')
+    return render_template('exibir_entradas.html', mensagem="Olá pessoas!", img="https://s3.amazonaws.com/media.wikiaves.com.br/images/4803/3084192_80b99ac1790d8306ff375024dae8cbf2.jpg")
 
 @app.route('/hello')
 def pagina_inicial():
