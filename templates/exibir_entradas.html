@@ -1,11 +1,22 @@
-<h1 style="color: red">Aqui estarão as entradas!!</h1>
-
-{% if session.logado %}
-<h2>estou logado</h2>
-{% else %}
-<h2>não estou logado</h2>
+{% extends 'layout.html' %} {% block corpo %} {% if session.logado %}
+<form action="{{url_for('inserir_entrada')}}" method="POST" class="ins-entrada">
+  <dl>
+    <dt>Titulo:</dt>
+    <dd><input type="text" size="30" name="campoTitulo" /></dd>
+    <dt>Texto:</dt>
+    <dd><textarea rows="5" cols="48" name="campoTexto"></textarea></dd>
+    <dd><input type="submit" value="Publicar" /></dd>
+  </dl>
+</form>
 {% endif %}
-
-<h2>{{entradas}}</h2>
-
-<img src="{{img}}" />
+<ul class="entradas">
+  {% for entrada in entradas %}
+  <li>
+    <h2>{{ entrada.titulo }}</h2>
+    {{entrada.texto}}
+  </li>
+  {% else %}
+  <li><em>Inacreditável! Você não tem nenhum título</em></li>
+  {% endfor %}
+</ul>
+{% endblock %}

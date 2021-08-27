@@ -35,7 +35,7 @@ def inserir_entrada():
     if not session.get('logado'):
         abort(401)
     sql = "insert into entradas (titulo, texto) values (?,?)"
-    g.bd.execute(sql, request.form['campoTitulo'], request.form['campoTexto'])
+    g.bd.execute(sql, (request.form['campoTitulo'], request.form['campoTexto']))
     g.bd.commit()
     return redirect('/entradas')
 
